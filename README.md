@@ -32,7 +32,7 @@ This repository contains the official implementation and experimental data of th
 
 The experimental data used in the paper is now publicly available at [Kaggle](https://www.kaggle.com/datasets/zkawfanx/gtav-nightrain-rerendered-version). It is based on [GTAV-NightRain](https://arxiv.org/pdf/2210.04708.pdf) dataset and increase the difficulty by enlarging the rain density.
 
-In this new version, we collected 5000 rainy images paired with 500 clean images for the training set, and 500/100 for the test set. Each clean image corresponds to 10/5 rainy images in train/test folders. The image resolution is 1920x1080.
+In this new version, we collected 5000 rainy images paired with 500 clean images for the training set, and 500/100 for the test set. Each clean image corresponds to 10/5 rainy images. The image resolution is 1920x1080.
 
 #### Note
 Please note that this is the very data used in the experiments. 
