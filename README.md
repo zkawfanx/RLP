@@ -57,9 +57,9 @@ You can refer to [Uformer](https://github.com/ZhendongWang6/Uformer) and [MPRNet
 bash train.sh
 ```
 You can
-- Select the Derainig Module (DM) by `--arch`, currently supporting `UNet` and `Uformer_T`.
+- Select the Deraining Module (DM) by `--arch`, currently supporting `UNet` and `Uformer_T`.
 - Enable the Rain Location Prior Module (RLP) by `--use_rlp`.
-- Enable the Rain Prior Injection Module (RPIM) using `--use_rpim`, which should be considered when RLP is used.
+- Enable the Rain Prior Injection Module (RPIM) using `--use_rpim`, which is only considered when RLP is used.
 - Change other parameters in `options.py`.
 
 
@@ -70,7 +70,7 @@ bash test.sh
 ```
 - Modify `--input_dir` to your `/path/to/test/images` and `--result_dir` for saving results. 
 - Modify `--weights` to the model checkpoint you have.
-- Modify `--model_name` following the format of `{DM}{_RLP}{_RPIM}`, such as `Uformer_T_RLP_RPIM` in `weights` folder.
+- Modify `--model_name` following the format of `DM`, `DM_RLP` or `DM_RLP_RPIM` according to the model, such as `Uformer_T_RLP_RPIM` when `DM = 'Uformer_T'`.
 
 ### Metrics
 To calculate PSNR and SSIM metrics, you can use the Matlab script
@@ -85,6 +85,15 @@ The results produced by `.py` script are slightly different from the `.m` script
 
 
 ## Checkpoints
+|   Model   | DM  | RLP | RPIM | PSNR  | SSIM  | Checkpoint |
+| :-------: | :-: | :-: | :--: | :---: | :---: | :---: |
+|   UNet    | ✓  |     |      | 36.63 | 0.9693 | [UNet.pth](weights/UNet.pth) |
+|   UNet    | ✓  | ✓  |      | 37.08 | 0.9715 | [UNet_RLP.pth](weights/UNet_RLP.pth) |
+|   UNet    | ✓  | ✓  |  ✓  | 37.28 | 0.9716 | [UNet_RLP_RPIM.pth](weights/UNet_RLP_RPIM.pth) |
+|-----|-----|-----|-----|-----|-----|-----|
+| Uformer_T | ✓  |     |      | 37.45 | 0.9720 | [Uformer_T.pth](weights/Uformer_T.pth) |
+| Uformer_T | ✓  | ✓  |      | 37.95 | 0.9733 | [Uformer_T_RLP.pth](weights/Uformer_T_RLP.pth) |
+| Uformer_T | ✓  | ✓  |  ✓  | 38.44 | 0.9749 | [Uformer_T_RLP_RPIM.pth](weights/Uformer_T_RLP_RPIM.pth) |
 
 
 ## License
