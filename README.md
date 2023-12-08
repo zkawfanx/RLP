@@ -59,7 +59,7 @@ bash train.sh
 You can
 - Select the Derainig Module (DM) by `--arch`, currently supporting `UNet` and `Uformer_T`.
 - Enable the Rain Location Prior Module (RLP) by `--use_rlp`.
-- Enable the Rain Prior Injection Module (RPIM) using `_use_rpim`, which should be considered when RLP is used.
+- Enable the Rain Prior Injection Module (RPIM) using `--use_rpim`, which should be considered when RLP is used.
 - Change other parameters in `options.py`.
 
 
@@ -81,7 +81,7 @@ or the Python version
 ```
 python evaluate_PSNR_SSIM.py
 ```
-The results produced by `.py` script is slightly different from the `.m` script.
+The results produced by `.py` script are slightly different from the `.m` script.
 
 
 ## Checkpoints
