@@ -14,12 +14,14 @@ This repository contains the official implementation and experimental data of th
 
 
 
-## News
+## Update
+- **2023.12.08:** Code release.
 - **2023.12.03:** Initial release of experimental data.
 - **2023.08.10:** Repo created.
 
 ## To Do
-- [ ] Code release.
+- [ ] Recollect misaligned data.
+- [x] Code release.
 - [x] Experimental data release.
 
 
@@ -38,6 +40,51 @@ Please note that this is the very data used in the experiments.
 However, after checking carefully, we find that there exist a few scenes with misalignments due to operation mistakes during collection. We filter out these scenes and there's about 0.5dB improvement in PSNR, which applys to all evaluated methods.
 
 We plan to re-collect and update these misaligned scenes and provide the updated quantitative results later.
+
+
+
+## Requirements
+- [x] Python 3.6.13
+- [x] Pytorch 1.10.2
+- [x] Cudatoolkit 11.3
+
+You can refer to [Uformer](https://github.com/ZhendongWang6/Uformer) and [MPRNet](https://github.com/swz30/MPRNe) for detailed dependency list. Necessary list will be updated later.
+
+## Training
+- Download the [Dataset](https://www.kaggle.com/datasets/zkawfanx/gtav-nightrain-rerendered-version) on Kaggle or prepare your own training dataset, then modify the `--train_dir` to corresponding directory.
+- Train the model by simply run
+```
+bash train.sh
+```
+You can
+- Select the Derainig Module (DM) by `--arch`, currently supporting `UNet` and `Uformer_T`.
+- Enable the Rain Location Prior Module (RLP) by `--use_rlp`.
+- Enable the Rain Prior Injection Module (RPIM) using `_use_rpim`, which should be considered when RLP is used.
+- Change other parameters in `options.py`.
+
+
+## Evaluation
+- Prepare your test images or simply test on the downloaded data, by running
+```
+bash test.sh
+```
+- Modify `--input_dir` to your `/path/to/test/images` and `--result_dir` for saving results. 
+- Modify `--weights` to the model checkpoint you have.
+- Modify `--model_name` following the format of `{DM}{_RLP}{_RPIM}`, such as `Uformer_T_RLP_RPIM` in `weights` folder.
+
+### Metrics
+To calculate PSNR and SSIM metrics, you can use the Matlab script
+```
+evaluate_PSNR_SSIM.m
+```
+or the Python version
+```
+python evaluate_PSNR_SSIM.py
+```
+The results produced by `.py` script is slightly different from the `.m` script.
+
+
+## Checkpoints
 
 
 ## License
@@ -63,3 +110,6 @@ If you find this repo useful, please give us a star and consider citing our pape
   year={2022}
 }
 ```
+
+## Acknowledgement
+The code is re-organized based on [Uformer](https://github.com/ZhendongWang6/Uformer) and [MPRNet](https://github.com/swz30/MPRNe). Thanks for their great works!
