@@ -57,7 +57,7 @@ You can
 - Select the Deraining Module (DM) by `--arch`, currently supporting `UNet` and `Uformer_T`.
 - Enable the Rain Location Prior Module (RLP) by `--use_rlp`.
 - Enable the Rain Prior Injection Module (RPIM) using `--use_rpim`, which is only considered when RLP is used.
-- Change other parameters in `rlp/options.py`.
+- Check other options in `rlp/options.py`.
 
 
 ## Evaluation
@@ -68,6 +68,7 @@ bash test.sh
 - Modify `--input_dir` to your `/path/to/test/images` and `--result_dir` for saving results. 
 - Modify `--weights` to the model checkpoint you have.
 - Modify `--model_name` following the format of `DM`, `DM_RLP` or `DM_RLP_RPIM` according to the model, such as `Uformer_T_RLP_RPIM` when `DM = 'Uformer_T', is_RLP = True, is_RPIM = True`.
+- Use `--tile` to enable tiling of large images for `Uformer`.
 
 ### Metrics
 To calculate PSNR and SSIM metrics, you can use the Matlab script
