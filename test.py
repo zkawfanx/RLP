@@ -1,13 +1,15 @@
 import argparse
 import os
-from models import model_utils
+
+import cv2
 import torch
 import numpy as np
-import cv2
-from dataset import DatasetTest
 from torch.utils.data import DataLoader
 from tqdm import tqdm
-from utils import expand2square
+
+from rlp.dataset import DatasetTest
+from rlp.models import model_utils
+from rlp.utils import expand2square
 
 parser = argparse.ArgumentParser(description='Image deraining inference on GTAV-NightRain')
 
@@ -29,7 +31,7 @@ parser.add_argument('--token_mlp', type=str,default='leff', help='ffn/leff token
 parser.add_argument('--query_embed', action='store_true', default=False, help='query embedding for the decoder')
 parser.add_argument('--dd_in', type=int, default=3, help='dd_in')
 
-parser.add_argument('--tile', type=bool, default=False, help='whether to tile for test image of large size')
+parser.add_argument('--tile', action='store_true', default=False, help='whether to tile for test image of large size')
 
 args = parser.parse_args()
 
@@ -53,7 +55,7 @@ if __name__ == "__main__":
     test_dataset = DatasetTest(args.input_dir)
     test_loader = DataLoader(test_dataset, batch_size=args.batch_size, shuffle=False, num_workers=4, drop_last=False, pin_memory=False)
     
-    result_dir = os.path.join(args.result_dir, args.arch)
+    result_dir = os.path.join(args.result_dir, args.model_name)
     if not os.path.exists(result_dir):
         os.makedirs(result_dir, exist_ok=True)
 

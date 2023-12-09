@@ -1,34 +1,32 @@
 import os
-import argparse
-import options
-########## parser ##########
-opt = options.Options().init(argparse.ArgumentParser(description='Nighttime Deraining')).parse_args()
-print(opt)
 
-import models.model_utils as model_utils
-from dataset import *
-########## Set GPUs ##########
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu
 import torch
-torch.backends.cudnn.benchmark = True
-
 import torch.optim as optim
-from torch.utils.data import DataLoader
 import random
 import time
 import numpy as np
 import datetime
-#from pdb import set_trace as stx
-
-from loss import CharbonnierLoss
-
 from tqdm import tqdm 
+
 from warmup_scheduler import GradualWarmupScheduler
 from torch.optim.lr_scheduler import StepLR
-from timm.utils import NativeScaler
+from torch.utils.data import DataLoader
+#from pdb import set_trace as stx
 
+from rlp.loss import CharbonnierLoss
+from rlp.models import model_utils
+from rlp.options import parse_options
+from rlp.dataset import *
 
+########## parser ##########
+opt = parse_options().parse_args()
+print(opt)
+
+########## Set GPUs ##########
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
+os.environ["CUDA_VISIBLE_DEVICES"] = opt.gpu
+
+torch.backends.cudnn.benchmark = True
 
 ########## Logs dir ##########
 rlp_suffix = "_RLP" if opt.use_rlp else ""
@@ -72,7 +70,6 @@ else:
 
 
 ########## DataParallel ##########
-# if number of gpus > 1, then dataparallel
 if torch.cuda.device_count() > 1:    
     model_restoration = torch.nn.DataParallel(model_restoration, device_ids=[0,1])
     print("Let's use", torch.cuda.device_count(), "GPUs!")
@@ -124,13 +121,8 @@ img_options_train = {'patch_size':opt.train_ps}
 train_dataset = DatasetTrain(opt.train_dir, img_options_train)
 train_loader = DataLoader(dataset=train_dataset, batch_size=opt.batch_size, shuffle=True, 
                           num_workers=opt.train_workers, pin_memory=False, drop_last=False)
-# val_dataset = DatasetVal(opt.val_dir)
-# val_loader = DataLoader(dataset=val_dataset, batch_size=opt.batch_size, shuffle=False, 
-#                         num_workers=opt.eval_workers, pin_memory=False, drop_last=False)
 
 print("Sizeof training set: ", train_dataset.__len__())
-# print("Sizeof validation set: ", val_dataset.__len__())
-
 
 ######### train ###########
 print('===> Start Epoch {}, End Epoch {}'.format(start_epoch, opt.nepoch))
@@ -178,14 +170,9 @@ for epoch in range(start_epoch, opt.nepoch):
         f.write("Epoch: {}\tTime: {:.4f}\tLoss: {:.4f}\tLearningRate {:.6f}".format(epoch, time.time()-epoch_start_time,epoch_loss, scheduler.get_lr()[0])+'\n')
 
 
-    torch.save({'epoch': epoch, 
-                'state_dict': model_restoration.state_dict(),
-                'optimizer' : optimizer.state_dict()
-                }, os.path.join(model_dir,"model_latest.pth"))   
-
-    # if epoch%opt.checkpoint == 0:
-    torch.save({'epoch': epoch, 
-                'state_dict': model_restoration.state_dict(),
-                'optimizer' : optimizer.state_dict()
-                }, os.path.join(model_dir,"model_epoch_{}.pth".format(epoch))) 
+    if epoch%opt.checkpoint == 0:
+        torch.save({'epoch': epoch, 
+                    'state_dict': model_restoration.state_dict(),
+                    'optimizer' : optimizer.state_dict()
+                    }, os.path.join(model_dir,"model_epoch_{}.pth".format(epoch))) 
 print("Now time is : ", datetime.datetime.now().isoformat())
