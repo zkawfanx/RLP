@@ -1,4 +1,4 @@
-# Learning Rain Location Prior for Nighttime Deraining (ICCV2023)
+# Learning Rain Location Prior for Nighttime Deraining
 
 > [**Learning Rain Location Prior for Nighttime Deraining**]()  
 > Fan Zhang, Shaodi You, Yu Li, Ying Fu  
@@ -15,18 +15,15 @@ This repository contains the official implementation and experimental data of th
 
 
 ## Update
+- [ ] Recollect misaligned data.
 - **2023.12.08:** Code release.
 - **2023.12.03:** Initial release of experimental data.
 - **2023.08.10:** Repo created.
 
-## To Do
-- [ ] Recollect misaligned data.
-- [x] Code release.
-- [x] Experimental data release.
 
 
 
-## Data Release
+## Dataset
 
 ![example](assets/example.gif)
 
@@ -48,7 +45,7 @@ We plan to re-collect and update these misaligned scenes and provide the updated
 - [x] Pytorch 1.10.2
 - [x] Cudatoolkit 11.3
 
-You can refer to [Uformer](https://github.com/ZhendongWang6/Uformer) and [MPRNet](https://github.com/swz30/MPRNe) for detailed dependency list. Necessary list will be updated later.
+You can refer to [Uformer](https://github.com/ZhendongWang6/Uformer) and [MPRNet](https://github.com/swz30/MPRNet) for detailed dependency list. Necessary list will be updated later.
 
 ## Training
 - Download the [Dataset](https://www.kaggle.com/datasets/zkawfanx/gtav-nightrain-rerendered-version) on Kaggle or prepare your own training dataset, then modify the `--train_dir` to corresponding directory.
@@ -87,23 +84,18 @@ The results produced by `.py` script are slightly different from the `.m` script
 ## Checkpoints
 |   Model   | DM  | RLP | RPIM | PSNR  | SSIM  | Checkpoint |
 | :-------: | :-: | :-: | :--: | :---: | :---: | :---: |
-|   UNet    | ✓  |     |      | 36.63 | 0.9693 | [UNet.pth](weights/UNet.pth) |
-|   UNet    | ✓  | ✓  |      | 37.08 | 0.9715 | [UNet_RLP.pth](weights/UNet_RLP.pth) |
-|   UNet    | ✓  | ✓  |  ✓  | 37.28 | 0.9716 | [UNet_RLP_RPIM.pth](weights/UNet_RLP_RPIM.pth) |
-|-----|-----|-----|-----|-----|-----|-----|
-| Uformer_T | ✓  |     |      | 37.45 | 0.9720 | [Uformer_T.pth](weights/Uformer_T.pth) |
-| Uformer_T | ✓  | ✓  |      | 37.95 | 0.9733 | [Uformer_T_RLP.pth](weights/Uformer_T_RLP.pth) |
-| Uformer_T | ✓  | ✓  |  ✓  | 38.44 | 0.9749 | [Uformer_T_RLP_RPIM.pth](weights/Uformer_T_RLP_RPIM.pth) |
+|   UNet    | ✓  |     |      | 36.63 | 0.9693 | [UNet.pth](https://github.com/zkawfanx/RLP/releases/download/v1.0.0/UNet.pth) |
+|   UNet    | ✓  | ✓  |      | 37.08 | 0.9715 | [UNet_RLP.pth](https://github.com/zkawfanx/RLP/releases/download/v1.0.0/UNet_RLP.pth) |
+|   UNet    | ✓  | ✓  |  ✓  | 37.28 | 0.9716 | [UNet_RLP_RPIM.pth](https://github.com/zkawfanx/RLP/releases/download/v1.0.0/UNet_RLP_RPIM.pth) |
+| Uformer_T | ✓  |     |      | 37.45 | 0.9720 | [Uformer_T.pth](https://github.com/zkawfanx/RLP/releases/download/v1.0.0/Uformer_T.pth) |
+| Uformer_T | ✓  | ✓  |      | 37.95 | 0.9733 | [Uformer_T_RLP.pth](https://github.com/zkawfanx/RLP/releases/download/v1.0.0/Uformer_T_RLP.pth) |
+| Uformer_T | ✓  | ✓  |  ✓  | 38.44 | 0.9749 | [Uformer_T_RLP_RPIM.pth](https://github.com/zkawfanx/RLP/releases/download/v1.0.0/Uformer_T_RLP_RPIM.pth) |
 
 
-## License
-MIT license.
 
-CC BY-NC-SA 4.0 for data.
-
-## Bibtex
+## Citation
 If you find this repo useful, please give us a star and consider citing our papers:
-```
+```bibtex
 @inproceedings{zhang2023learning,
   title={Learning Rain Location Prior for Nighttime Deraining},
   author={Zhang, Fan and You, Shaodi and Li, Yu and Fu, Ying},
@@ -122,3 +114,9 @@ If you find this repo useful, please give us a star and consider citing our pape
 
 ## Acknowledgement
 The code is re-organized based on [Uformer](https://github.com/ZhendongWang6/Uformer) and [MPRNet](https://github.com/swz30/MPRNe). Thanks for their great works!
+
+
+## License
+MIT license.
+
+CC BY-NC-SA 4.0 for data.
