@@ -126,12 +126,8 @@ print("Sizeof training set: ", train_dataset.__len__())
 
 ######### train ###########
 print('===> Start Epoch {}, End Epoch {}'.format(start_epoch, opt.nepoch))
-best_psnr = 0
-best_epoch = 0
-best_iter = 0
-eval_now = len(train_loader)//4
-print("\nEvaluation after every {} Iterations !!!\n".format(eval_now))
 
+loss_scaler = NativeScaler()
 torch.cuda.empty_cache()
 for epoch in range(start_epoch, opt.nepoch):
     epoch_start_time = time.time()
@@ -148,7 +144,8 @@ for epoch in range(start_epoch, opt.nepoch):
         with torch.cuda.amp.autocast():
             restored, _ = model_restoration(input)
             loss = criterion(restored, gt)
-        
+        loss_scaler(
+            loss, optimizer,parameters=model_restoration.parameters())
         epoch_loss +=loss.item()
 
     if opt.save_images:
