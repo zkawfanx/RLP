@@ -11,6 +11,7 @@ from tqdm import tqdm
 from warmup_scheduler import GradualWarmupScheduler
 from torch.optim.lr_scheduler import StepLR
 from torch.utils.data import DataLoader
+from timm.utils import NativeScaler
 #from pdb import set_trace as stx
 
 from rlp.loss import CharbonnierLoss
