@@ -74,7 +74,7 @@ class PReNet(nn.Module):
 
         x = input
         h = Variable(torch.zeros(batch_size, 32, row, col))
-        c = Variable(torch.zeros(batch_size, 32, row, col))
+        c = Variable(torch.zeros(batch_size, 32, row, col))/2.
 
         if self.use_GPU:
             h = h.cuda()

@@ -81,8 +81,8 @@ class DatasetTrain(Dataset):
         ps = self.img_options['patch_size']
         H = gt.shape[1]
         W = gt.shape[2]
-        r = np.random.randint(0, H - ps) if not H-ps else 0
-        c = np.random.randint(0, W - ps) if not H-ps else 0
+        r = np.random.randint(0, H - ps) if H-ps>0 else 0
+        c = np.random.randint(0, W - ps) if H-ps>0 else 0
         
         input = input[:, r:r + ps, c:c + ps]
         gt    = gt[:, r:r + ps, c:c + ps]
