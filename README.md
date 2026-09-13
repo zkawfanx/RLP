@@ -3,6 +3,10 @@
 > [**Learning Rain Location Prior for Nighttime Deraining**]()  
 > Fan Zhang, Shaodi You, Yu Li, Ying Fu  
 > ICCV 2023
+>
+> [**Learning Rain Location Prior for Nighttime Deraining and Beyond**]()  
+> Fan Zhang, Shaodi You, Yu Li, Ying Fu  
+> TPAMI 2025
 
 ![framework](assets/framework.png)
 
@@ -103,6 +107,17 @@ If you find this repo useful, please give us a star and consider citing our pape
   booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
   pages={13148--13157},
   year={2023}
+}
+
+@article{zhang2025learning,
+  title={Learning Rain Location Prior for Nighttime Deraining and Beyond},
+  author={Zhang, Fan and You, Shaodi and Li, Yu and Fu, Ying},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  volume={47},
+  number={10},
+  pages={9169--9186},
+  year={2025},
+  publisher={IEEE}
 }
 
 @article{zhang2022gtav,
